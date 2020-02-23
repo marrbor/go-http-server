@@ -5,6 +5,7 @@ github.com/marrbor/gohttp v0.0.2/go.mod h1:8w5uaBsyAMiqw4bggFfftxdFZA0O1xyGlxlXt
 github.com/marrbor/golog v0.0.0-20200120062617-fc7656502c6d/go.mod h1:HEouEy0sZQsIXMkbaB9e6vF90vlSc+IN8y9Z1n+7sVM=
 github.com/marrbor/golog v0.0.2 h1:3p0qbm4fPSlvUKVboIkkNPN5NKuhyrezv91PiD5OLsA=
 github.com/marrbor/golog v0.0.2/go.mod h1:HEouEy0sZQsIXMkbaB9e6vF90vlSc+IN8y9Z1n+7sVM=
+github.com/marrbor/golog v0.0.3/go.mod h1:HEouEy0sZQsIXMkbaB9e6vF90vlSc+IN8y9Z1n+7sVM=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

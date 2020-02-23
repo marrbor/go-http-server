@@ -40,7 +40,7 @@ func (hs *HttpServer) Stop() {
 		// Error from closing listeners, or context timeout:
 		golog.Error(err)
 	}
-	golog.Info("server shutdown, exit.")
+	golog.Info("http server shutdown, exit.")
 }
 
 // NewServer returns new server instance.
