@@ -26,6 +26,7 @@ type HttpServer struct{ *http.Server }
 // startServer starts http server. call as goroutine.
 func (hs *HttpServer) startServer(bus chan error) {
 	if err := hs.ListenAndServe(); err != nil {
+		golog.Error(err)
 		bus <- err
 		return
 	}
