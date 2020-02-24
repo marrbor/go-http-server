@@ -23,13 +23,18 @@ type EntryPoint struct {
 // HttpServer holds configurator web server.
 type HttpServer struct{ *http.Server }
 
-// Start starts configurator web server. call as goroutine.
-func (hs *HttpServer) Start(bus chan error) {
+// startServer starts http server. call as goroutine.
+func (hs *HttpServer) startServer(bus chan error) {
 	if err := hs.ListenAndServe(); err != nil {
 		bus <- err
 		return
 	}
 	bus <- ExitServerError
+}
+
+// Start starts http server.
+func (hs *HttpServer) Start(bus chan error) {
+	go hs.startServer(bus)
 }
 
 // Stop stops web server.

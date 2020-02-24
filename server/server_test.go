@@ -56,7 +56,7 @@ var eps = []server.EntryPoint{
 func TestNewServer1(t *testing.T) {
 	hs := server.NewServer(8888, eps, nil)
 	ch := make(chan error)
-	go hs.Start(ch)
+	hs.Start(ch)
 
 	// A test
 	res, err := http.Get("http://localhost:8888/a")
@@ -129,7 +129,7 @@ func defFunc(w http.ResponseWriter, r *http.Request) {
 func TestNewServer2(t *testing.T) {
 	hs := server.NewServer(8888, eps, defFunc)
 	ch := make(chan error)
-	go hs.Start(ch)
+	hs.Start(ch)
 
 	// A test
 	res, err := http.Get("http://localhost:8888/a")
