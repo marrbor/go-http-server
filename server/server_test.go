@@ -7,6 +7,7 @@ import (
 
 	"github.com/marrbor/go-http-server/server"
 	"github.com/marrbor/gohttp"
+	"github.com/marrbor/golog"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -120,6 +121,9 @@ func TestNewServer1(t *testing.T) {
 	assert.EqualValues(t, http.StatusMethodNotAllowed, res.StatusCode)
 
 	hs.Stop()
+	msg := <-ch
+	golog.Info(msg)
+
 }
 
 func defFunc(w http.ResponseWriter, r *http.Request) {
@@ -192,4 +196,33 @@ func TestNewServer2(t *testing.T) {
 	assert.EqualValues(t, http.StatusMethodNotAllowed, res.StatusCode)
 
 	hs.Stop()
+	msg := <-ch
+	golog.Info(msg)
+
+}
+
+func TestNewServer3(t *testing.T) {
+	hs := server.NewServer(8888, nil, nil)
+	ch := make(chan error)
+	hs.Start(ch)
+
+	res, err := http.Get("http://localhost:8888/a")
+	assert.NoError(t, err)
+	assert.EqualValues(t, http.StatusNotFound, res.StatusCode)
+
+	res, err = http.Get("http://localhost:8888/b")
+	assert.NoError(t, err)
+	assert.EqualValues(t, http.StatusNotFound, res.StatusCode)
+
+	res, err = http.Get("http://localhost:8888/")
+	assert.NoError(t, err)
+	assert.EqualValues(t, http.StatusNotFound, res.StatusCode)
+
+	res, err = http.Get("http://localhost:8888")
+	assert.NoError(t, err)
+	assert.EqualValues(t, http.StatusNotFound, res.StatusCode)
+
+	hs.Stop()
+	msg := <-ch
+	golog.Info(msg)
 }

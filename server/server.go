@@ -26,7 +26,6 @@ type HttpServer struct{ *http.Server }
 // startServer starts http server. call as goroutine.
 func (hs *HttpServer) startServer(bus chan error) {
 	if err := hs.ListenAndServe(); err != nil {
-		golog.Error(err)
 		bus <- err
 		return
 	}
@@ -45,6 +44,7 @@ func (hs *HttpServer) Stop() {
 	if err := hs.Shutdown(ctx); err != nil {
 		// Error from closing listeners, or context timeout:
 		golog.Error(err)
+		return
 	}
 	golog.Info("http server shutdown, exit.")
 }
@@ -54,9 +54,11 @@ func NewServer(port int, ep []EntryPoint, rf func(w http.ResponseWriter, r *http
 	mux := http.NewServeMux()
 
 	// register both "/entry/" and "/entry" points.
-	for _, ep := range ep {
-		mux.HandleFunc(fmt.Sprintf("/%s", ep.Resource), ep.Function)
-		mux.HandleFunc(fmt.Sprintf("/%s/", ep.Resource), ep.Function)
+	if ep != nil {
+		for _, ep := range ep {
+			mux.HandleFunc(fmt.Sprintf("/%s", ep.Resource), ep.Function)
+			mux.HandleFunc(fmt.Sprintf("/%s/", ep.Resource), ep.Function)
+		}
 	}
 
 	if rf == nil {
