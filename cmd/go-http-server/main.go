@@ -23,7 +23,8 @@ const (
 )
 
 func all(w http.ResponseWriter, r *http.Request) {
-	golog.Info(fmt.Sprintf("Recevied from: %s", r.RemoteAddr))
+	golog.Info(fmt.Sprintf("From:   %s", r.RemoteAddr))
+	golog.Info(fmt.Sprintf("To:     %s", r.URL))
 	golog.Info(fmt.Sprintf("Method: %s", r.Method))
 
 	defer r.Body.Close()
@@ -32,12 +33,8 @@ func all(w http.ResponseWriter, r *http.Request) {
 		gohttp.BadRequest(w, err)
 		return
 	}
-	golog.Info(fmt.Sprintf("Body: %s", string(b)))
+	golog.Info(fmt.Sprintf("Body:   %s", string(b)))
 	gohttp.ResponseOK(w)
-}
-
-var eps = []server.EntryPoint{
-	{Resource: "/", Function: all},
 }
 
 func main() {
